@@ -1,7 +1,7 @@
 # Sysdig <-> Stream Ingestion
 
 resource "aws_iam_role" "sysdig_to_cloudwatch" {
-  name                = "sysdig_metrics_stream_ingest"
+  name               = "sysdig_metrics_stream_ingest"
   assume_role_policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -24,8 +24,8 @@ POLICY
 }
 
 resource "aws_iam_role_policy" "cloudwatch_read" {
-  name = "cloudwatch_read"
-  role = aws_iam_role.sysdig_to_cloudwatch.id
+  name   = "cloudwatch_read"
+  role   = aws_iam_role.sysdig_to_cloudwatch.id
   policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -67,7 +67,7 @@ POLICY
 # Stream -> S3
 
 resource "aws_iam_role" "firehose_to_s3" {
-  name                = "sysdig_firehose_service_role"
+  name               = "sysdig_firehose_service_role"
   assume_role_policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -85,8 +85,8 @@ POLICY
 }
 
 resource "aws_iam_role_policy" "firehose_read_s3" {
-  name = "s3_read"
-  role = aws_iam_role.firehose_to_s3.id
+  name   = "s3_read"
+  role   = aws_iam_role.firehose_to_s3.id
   policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -115,7 +115,7 @@ POLICY
 # Cloudwatch -> Stream
 
 resource "aws_iam_role" "cloudwatch_to_firehose" {
-  name                = "sysdig_cloudwatch_service_role"
+  name               = "sysdig_cloudwatch_service_role"
   assume_role_policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -133,8 +133,8 @@ POLICY
 }
 
 resource "aws_iam_role_policy" "kinesis_write" {
-  name = "kinesis_write"
-  role = aws_iam_role.cloudwatch_to_firehose.id
+  name   = "kinesis_write"
+  role   = aws_iam_role.cloudwatch_to_firehose.id
   policy = <<POLICY
 {
     "Version": "2012-10-17",

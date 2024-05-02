@@ -2,7 +2,7 @@ data "http" "sysdig_cloud_info" {
   url = "${var.sysdig_monitor_url}/api/v2/providers/info/awsCloudInformation"
 
   request_headers = {
-    Accept = "application/json"
+    Accept        = "application/json"
     Authorization = "Bearer ${var.sysdig_monitor_api_token}"
   }
 
@@ -15,9 +15,9 @@ data "http" "sysdig_cloud_info" {
 }
 
 locals {
-    sysdig_cloud_info_resp = jsondecode(data.http.sysdig_cloud_info.response_body)
-    stream_external_id = local.sysdig_cloud_info_resp.externalId
-    sysdig_aws_account = local.sysdig_cloud_info_resp.awsSystemAccountId
+  sysdig_cloud_info_resp = jsondecode(data.http.sysdig_cloud_info.response_body)
+  stream_external_id     = local.sysdig_cloud_info_resp.externalId
+  sysdig_aws_account     = local.sysdig_cloud_info_resp.awsSystemAccountId
 }
 
 resource "aws_s3_bucket" "stream_fallback" {
